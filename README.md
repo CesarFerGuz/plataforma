@@ -1,4 +1,4 @@
-# plataforma
+# Plataforma Tec
 Prueba plataforma Tec Martinez
 
 Para conectar con la base de datos primero debes modificar el archivo ubicado en application\config\database.php con sus respectivas credenciales.
