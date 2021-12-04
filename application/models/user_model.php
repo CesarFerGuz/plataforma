@@ -13,8 +13,7 @@ class User_model extends CI_Model
        echo $store_password;
        if($password == $store_password)
        {
-        $this->session->set_userdata('id', $row->id);
-        $this->session->set_userdata('empleado',$row->id);
+        $this->session->set_userdata('id_usuario', $row->id_usuario);
        }
        else
        {
@@ -34,9 +33,9 @@ class User_model extends CI_Model
     return $this->db->insert_id();
   }
 
-  function get_data($id, $tabla)
+  function get_data($idName, $id, $tabla)
   {
-    $this->db->where('id', $id);
+    $this->db->where($idName, $id);
     $query = $this->db->get($tabla);
     return $query->row();
   }

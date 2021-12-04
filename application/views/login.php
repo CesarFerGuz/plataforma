@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+  <title>Login - Plataforma Tec Martinez</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -37,7 +37,7 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <a href="<?php echo base_url(); ?>main" class="logo d-flex align-items-center w-auto">
                   <img src="<?php echo base_url(); ?>assets/img/logo.svg" alt="">
                   <span class="d-none d-lg-block">Tecnólogico de Martinez</span>
                 </a>
@@ -52,21 +52,30 @@
                     <p class="text-center small">Introduce tu correo y contraseña</p>
                   </div>
 
+                <?php
+                if($this->session->flashdata('message'))
+                {
+                    echo '
+                    <div class="alert alert-warning">
+                        '.$this->session->flashdata("message").'
+                    </div>
+                    ';
+                }
+                ?>
                   <form class="row g-3 needs-validation" method="post" action="<?php echo base_url(); ?>login/validation" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Correo</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="user_email" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Por favor introduce tu correo.</div>
-                      </div>
+                      <label for="yourEmail" class="form-label">Correo</label>
+                      <input type="text" name="user_email" class="form-control" id="yourEmail" required>
+                      <div class="invalid-feedback">Por favor introduce tu correo.</div>
+                      <span class="text-danger"><?php echo form_error('user_email'); ?></span>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Contraseña</label>
                       <input type="password" name="user_password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Por favor introduce tu contraseña.</div>
+                      <span class="text-danger"><?php echo form_error('user_password'); ?></span>
                     </div>
 
                     <div class="col-12">

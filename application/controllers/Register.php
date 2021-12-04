@@ -6,9 +6,9 @@ class Register extends CI_Controller {
    	public function __construct()
     {
         parent::__construct();
-	  if($this->session->userdata('id'))
+	  if($this->session->userdata('id_usuario'))
 	  {
-	   redirect('private_area');
+	   redirect('main');
 	  }
 	    $this->load->library('encrypt');
 	    $this->load->model('user_model');
@@ -21,7 +21,7 @@ class Register extends CI_Controller {
 
     function getdata()
     {
-    	$userdata = $this->user_model->get_data("190i0023","table_usuarios");
+    	$userdata = $this->user_model->get_data("id_usuario","190i0023","table_usuarios");
 		if (!$userdata) {
 			echo "false";
 		}else{
@@ -31,13 +31,13 @@ class Register extends CI_Controller {
 
     function validation()
 	{
-		$this->form_validation->set_rules('id_empleado', 'Número de empleado', 'required|trim|is_unique[table_usuarios.id_empleado]');
+		$this->form_validation->set_rules('id_persona', 'Número de empleado', 'required|trim|is_unique[table_usuarios.id_persona]');
 		$this->form_validation->set_rules('user_email', 'Correo', 'required|trim|valid_email|is_unique[table_usuarios.correo]');
 		$this->form_validation->set_rules('user_password', 'Contraseña', 'required');
 		if($this->form_validation->run())
 		{
-			$idempleado = $this->input->post('id_empleado');
-    		$userdata = $this->user_model->get_data($idempleado,"table_empleados");
+			$idpersona = $this->input->post('id_persona');
+    		$userdata = $this->user_model->get_data("id_persona",$idpersona,"table_personas");
     		if ($userdata) {
     			$tipo = 0;
     			if ($userdata->puesto_id == 1) {
@@ -48,20 +48,21 @@ class Register extends CI_Controller {
 				$data = array(
 				'correo'  => $this->input->post('user_email'),
 				'contraseña' => $encrypted_password,
-				'tipo' => $tipo,
-				"id_empleado" => $idempleado
+				'id_tipo' => $tipo,
+				"id_persona" => $idpersona
 				);
 				$id = $this->user_model->insert($data,"table_usuarios");
 	      		$this->session->set_userdata('id', $id);
 	      		$this->session->set_userdata('nombre',$nombre);
-	    		redirect('private_area');
+	    		redirect('main');
     		}else{
-    			$this->load->view('register');
+			    $this->session->set_flashdata('message',"Número de empleado no existe");
+			    redirect('register');
     		}
 		}
 		else
 		{
-    		$this->load->view('register');
+		    redirect('register');
 		}
 	}
     

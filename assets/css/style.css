@@ -356,6 +356,26 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Nunito", sans-serif;
 }
 
+
+.logoh {
+  line-height: 1;
+}
+@media (min-width: 1200px) {
+  .logoh {
+    width: 280px;
+  }
+}
+.logoh img {
+  max-height: 60px;
+  margin-right: 6px;
+}
+.logoh span {
+  font-size: 26px;
+  font-weight: 700;
+  color: #012970;
+  font-family: "Nunito", sans-serif;
+}
+
 .header {
   transition: all 0.5s;
   z-index: 997;

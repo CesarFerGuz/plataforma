@@ -28,13 +28,6 @@
 
   <!-- Template Main CSS File -->
   <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.2.0
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -63,12 +56,23 @@
                     <p class="text-center small">Introduce tu información personal</p>
                   </div>
 
+                <?php
+                if($this->session->flashdata('message'))
+                {
+                    echo '
+                    <div class="alert alert-warning">
+                        '.$this->session->flashdata("message").'
+                    </div>
+                    ';
+                }
+                ?>
+
                   <form class="row g-3 needs-validation" method= "post" action= "<?php echo base_url(); ?>register/validation" novalidate>
                     <div class="col-12">
                       <label for="yourName" class="form-label">Tu número de empleado</label>
-                      <input type="text" name="id_empleado" class="form-control" id="yourName" required>
+                      <input type="text" name="id_persona" class="form-control" id="yourName" required>
                       <div class="invalid-feedback">Por favor introduce tu número de empleado!</div>
-                      <span class="text-danger"><?php echo form_error('id_empleado'); ?></span>
+                      <span class="text-danger"><?php echo form_error('id_persona'); ?></span>
                     </div>
 
                     <div class="col-12">

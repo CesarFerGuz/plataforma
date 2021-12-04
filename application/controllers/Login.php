@@ -6,13 +6,13 @@ class Login extends CI_Controller {
  public function __construct()
  {
   parent::__construct();
-  if($this->session->userdata('id'))
+  if($this->session->userdata('id_usuario'))
   {
-   redirect('private_area');
+   redirect('main');
   }
   $this->load->library('form_validation');
   $this->load->library('encrypt');
-  $this->load->model('login_model');
+  $this->load->model('user_model');
  }
 
  function index()
@@ -22,24 +22,24 @@ class Login extends CI_Controller {
 
  function validation()
  {
-  $this->form_validation->set_rules('user_email', 'Email Address', 'required|trim|valid_email');
-  $this->form_validation->set_rules('user_password', 'Password', 'required');
+  $this->form_validation->set_rules('user_email', 'Correo', 'required|trim|valid_email');
+  $this->form_validation->set_rules('user_password', 'Contraseña', 'required');
   if($this->form_validation->run())
   {
-   $result = $this->login_model->can_login($this->input->post('user_email'), $this->input->post('user_password'));
+   $result = $this->user_model->can_login($this->input->post('user_email'), $this->input->post('user_password'));
    if($result == '')
    {
-    redirect('private_area');
+      redirect('main');
    }
    else
    {
-    $this->session->set_flashdata('message',$result);
-    redirect('login');
+      $this->session->set_flashdata('message',$result);
+      redirect('login');
    }
   }
   else
   {
-   $this->index();
+    redirect('login');
   }
  }
 
